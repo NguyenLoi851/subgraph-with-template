@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,13 +8,14 @@ dataSources:
     source:
       address: "0x4Cb2119DDe1Ad9896924490BCC01738a42fBEF97"
       abi: Factory
+      startBlock: 27200000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - Abc
-        - CreateNewCampaign
+        - AbcEntity
+        - CreateNewCampaignEntity
       abis:
         - name: Factory
           file: ./abis/Factory.json
@@ -24,3 +25,22 @@ dataSources:
         - event: CreateNewCampaign(uint256,address,address)
           handler: handleCreateNewCampaign
       file: ./src/factory.ts
+templates:
+  - name: Campaign
+    kind: ethereum/contract
+    network: mumbai
+    source:
+      abi: Campaign
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/factory.ts
+      entities:
+        - MultipleCampaignEntity
+      abis:
+        - name: Campaign
+          file: ./abis/Campaign.json
+      eventHandlers:
+        - event: MultipleCampaign(uint256,uint256,uint256)
+          handler: handleMultipleCampaign

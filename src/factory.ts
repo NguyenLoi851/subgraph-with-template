@@ -1,26 +1,28 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import { Factory, Abc, CreateNewCampaign } from "../generated/Factory/Factory"
-import { ExampleEntity } from "../generated/schema"
+import {MultipleCampaign} from "../generated/templates/Campaign/Campaign"
+import { ExampleEntity, AbcEntity, CreateNewCampaignEntity, MultipleCampaignEntity } from "../generated/schema"
+import {Campaign} from "../generated/templates";
 
 export function handleAbc(event: Abc): void {
   // Entities can be loaded from the store using a string ID; this ID
   // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
+  let entity = AbcEntity.load(event.transaction.hash.toHex()+event.block.number.toHex())
 
   // Entities only exist after they have been saved to the store;
   // `null` checks allow to create entities on demand
   if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
+    entity = new AbcEntity(event.transaction.hash.toHex()+event.block.number.toHex())
 
     // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
+    // entity.count = BigInt.fromI32(0)
   }
 
   // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
+  entity.length = event.params.length
 
   // Entity fields can be set based on event parameters
-  entity.length = event.params.length
+  // entity.length = event.params.length
 
   // Entities can be written to the store with `.save()`
   entity.save()
@@ -45,4 +47,26 @@ export function handleAbc(event: Abc): void {
   // - contract.deployedCampaign(...)
 }
 
-export function handleCreateNewCampaign(event: CreateNewCampaign): void {}
+export function handleCreateNewCampaign(event: CreateNewCampaign): void {
+  Campaign.create(event.params.campaign)
+  let entity = CreateNewCampaignEntity.load(event.transaction.hash.toHex()+event.block.number.toHex())
+  if(!entity){
+    entity = new CreateNewCampaignEntity(event.transaction.hash.toHex()+event.block.number.toHex())
+  }
+  entity.aNumber = event.params.aNumber
+  entity.bAddress = event.params.bAddress
+  entity.campaign = event.params.campaign
+  entity.save()
+}
+
+export function handleMultipleCampaign(event: MultipleCampaign): void {
+  let entity = MultipleCampaignEntity.load(event.transaction.hash.toHex()+event.block.number.toHex())
+  if(!entity){
+    entity = new MultipleCampaignEntity(event.transaction.hash.toHex()+event.block.number.toHex())
+  }
+  entity.aNumber = event.params.aNumber
+  entity.kNumber = event.params.kNumber
+  entity.resNumber = event.params.resNumber
+  entity.save()
+}
+

@@ -1,0 +1,89 @@
+[
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_a",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "_b",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "aNumber",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "kNumber",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "resNumber",
+            "type": "uint256"
+          }
+        ],
+        "name": "MultipleCampaign",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "a",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "b",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_k",
+            "type": "uint256"
+          }
+        ],
+        "name": "multiple",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+  
