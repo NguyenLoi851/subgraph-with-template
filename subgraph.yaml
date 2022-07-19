@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Factory
+    network: mumbai
+    source:
+      address: "0x4Cb2119DDe1Ad9896924490BCC01738a42fBEF97"
+      abi: Factory
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Abc
+        - CreateNewCampaign
+      abis:
+        - name: Factory
+          file: ./abis/Factory.json
+      eventHandlers:
+        - event: Abc(uint256)
+          handler: handleAbc
+        - event: CreateNewCampaign(uint256,address,address)
+          handler: handleCreateNewCampaign
+      file: ./src/factory.ts
