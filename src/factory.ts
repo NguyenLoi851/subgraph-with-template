@@ -61,8 +61,10 @@ export function handleCreateNewCampaign(event: CreateNewCampaign): void {
 
 export function handleMultipleCampaign(event: MultipleCampaign): void {
   let entity = MultipleCampaignEntity.load(event.transaction.hash.toHex()+event.block.number.toHex())
+  // let entity = MultipleCampaignEntity.load(event.address.toHex())
   if(!entity){
     entity = new MultipleCampaignEntity(event.transaction.hash.toHex()+event.block.number.toHex())
+    // entity = new MultipleCampaignEntity(event.address.toHex())
   }
   entity.aNumber = event.params.aNumber
   entity.kNumber = event.params.kNumber
